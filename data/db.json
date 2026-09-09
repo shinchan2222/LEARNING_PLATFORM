@@ -152,7 +152,7 @@
         }
       ],
       "seatsTotal": 30,
-      "seatsLeft": 6,
+      "seatsLeft": 5,
       "isOpen": true,
       "startDate": "2026-10-01",
       "rating": 4.95,
@@ -452,14 +452,14 @@
       "appliedAt": "2026-06-01T09:15:00.000Z",
       "paymentStatus": "paid",
       "paymentDetails": {
-        "transactionId": "TXN_SIM_512984123",
-        "method": "Stripe Credit Card (Visa ****4242)",
+        "transactionId": "TXN_SIM_SR8XL72X_3117",
+        "method": "Razorpay UPI (intern.student@okhdfcbank)",
         "amount": 299,
         "currency": "USD",
-        "paidAt": "2026-06-01T09:20:00.000Z",
-        "receiptNumber": "RCP-2026-0601"
+        "paidAt": "2026-09-09T16:39:53.117Z",
+        "receiptNumber": "RCP-2026-418092"
       },
-      "status": "completed",
+      "status": "enrolled",
       "finalGrade": "Grade A+ (Distinction)",
       "completedAt": "2026-08-01T14:00:00.000Z"
     }

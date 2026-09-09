@@ -38,6 +38,7 @@ export const InternshipCatalog: React.FC = () => {
   // Modals state
   const [syllabusTarget, setSyllabusTarget] = useState<Internship | null>(null);
   const [enrollTarget, setEnrollTarget] = useState<Internship | null>(null);
+  const [pendingEnrollment, setPendingEnrollment] = useState<Internship | null>(null);
   const [authRequiredModal, setAuthRequiredModal] = useState(false);
 
   useEffect(() => {
@@ -73,6 +74,7 @@ export const InternshipCatalog: React.FC = () => {
 
   const handleEnrollClick = (internship: Internship) => {
     if (!user) {
+      setPendingEnrollment(internship);
       setAuthRequiredModal(true);
       return;
     }
@@ -307,10 +309,17 @@ export const InternshipCatalog: React.FC = () => {
       {authRequiredModal && (
         <AuthModal
           mode="login"
-          onClose={() => setAuthRequiredModal(false)}
+          onClose={() => {
+            setAuthRequiredModal(false);
+            setPendingEnrollment(null);
+          }}
           onSwitchMode={() => {}}
           onSuccess={() => {
             setAuthRequiredModal(false);
+            if (pendingEnrollment) {
+              setEnrollTarget(pendingEnrollment);
+              setPendingEnrollment(null);
+            }
           }}
         />
       )}

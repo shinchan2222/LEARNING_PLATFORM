@@ -183,6 +183,19 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               </div>
             </div>
 
+            {/* Frictionless Test Badge */}
+            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-xs font-semibold text-emerald-900">
+                  Instant Sandbox Test Mode
+                </span>
+              </div>
+              <span className="text-[11px] text-emerald-700">
+                No actual card or charge required • 1-click test enrollment
+              </span>
+            </div>
+
             {/* Gateway Brand Selector */}
             <div>
               <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">

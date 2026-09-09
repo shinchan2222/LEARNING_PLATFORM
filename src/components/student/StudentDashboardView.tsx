@@ -14,7 +14,9 @@ import {
   Lock,
   Send,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Award,
+  Code2
 } from 'lucide-react';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import CertificateModal from './CertificateModal';
@@ -486,6 +488,101 @@ export const StudentDashboardView: React.FC = () => {
                         </span>
                       </div>
 
+                      {/* Next Action Recommendation Banner */}
+                      {(() => {
+                        const syllabus = selectedApp.internship?.syllabus || [];
+                        const currentActionable = syllabus.find((mod: any) => {
+                          const sub = submissions.find(s => s.applicationId === selectedApp.id && s.weekNumber === mod.week);
+                          return !sub || sub.status !== 'approved';
+                        });
+                        const currentSub = currentActionable 
+                          ? submissions.find(s => s.applicationId === selectedApp.id && s.weekNumber === currentActionable.week)
+                          : null;
+
+                        if (!currentActionable && selectedApp.status === 'completed') {
+                          return (
+                            <div className="mb-6 p-4 bg-emerald-50/80 border border-emerald-200 rounded-lg flex items-center justify-between gap-4">
+                              <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                                  <Check className="w-4 h-4 stroke-[3]" />
+                                </div>
+                                <div>
+                                  <h4 className="text-xs font-bold text-emerald-950">Curriculum Complete — Distinction Honors</h4>
+                                  <p className="text-[11px] text-emerald-800 mt-0.5">
+                                    All milestones have passed technical review. Your credential is authenticated and minted.
+                                  </p>
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => setActiveTab('certificates')}
+                                className="shrink-0 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-md transition-colors flex items-center gap-1.5 shadow-xs"
+                              >
+                                <Award className="w-3.5 h-3.5" />
+                                View Certificate
+                              </button>
+                            </div>
+                          );
+                        }
+
+                        if (currentSub?.status === 'under_review') {
+                          return (
+                            <div className="mb-6 p-4 bg-amber-50/80 border border-amber-200 rounded-lg flex items-center justify-between gap-4">
+                              <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0">
+                                  <Clock className="w-4 h-4 stroke-[2.5]" />
+                                </div>
+                                <div>
+                                  <h4 className="text-xs font-bold text-amber-950">Milestone {currentActionable?.week} Under Faculty Review</h4>
+                                  <p className="text-[11px] text-amber-800 mt-0.5">
+                                    Your pull request is queued for technical and benchmark evaluation. Expect feedback within 24-48 hours.
+                                  </p>
+                                </div>
+                              </div>
+                              <span className="text-[11px] font-mono text-amber-700 bg-amber-100/70 border border-amber-300 px-2.5 py-1 rounded">
+                                Status: Review in progress
+                              </span>
+                            </div>
+                          );
+                        }
+
+                        if (currentActionable) {
+                          return (
+                            <div className="mb-6 p-4 bg-blue-50/80 border border-blue-200 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                              <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0">
+                                  <Code2 className="w-4 h-4" />
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[10px] uppercase font-bold tracking-wider bg-blue-200/70 text-blue-800 px-1.5 py-0.5 rounded">
+                                      Next Up
+                                    </span>
+                                    <h4 className="text-xs font-bold text-blue-950">
+                                      Milestone {currentActionable.week}: {currentActionable.title}
+                                    </h4>
+                                  </div>
+                                  <p className="text-[11px] text-blue-800 mt-0.5">
+                                    Submit your pull request link and benchmark metrics to unlock faculty grading.
+                                  </p>
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => {
+                                  setInlineSubmitWeek(currentActionable.week);
+                                  setExpandedMilestones(prev => ({ ...prev, [currentActionable.week]: true }));
+                                }}
+                                className="shrink-0 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-md transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+                              >
+                                <ArrowRight className="w-3.5 h-3.5" />
+                                Submit Milestone {currentActionable.week}
+                              </button>
+                            </div>
+                          );
+                        }
+
+                        return null;
+                      })()}
+
                       {/* Continuous Connected Vertical Timeline */}
                       <div className="relative border-l-2 border-neutral-200 ml-3.5 pl-6 sm:pl-8 space-y-8 my-2">
                         {(() => {
@@ -641,13 +738,26 @@ export const StudentDashboardView: React.FC = () => {
                                     {/* Focused Data-Entry Area */}
                                     {inlineSubmitWeek === mod.week && (
                                       <div className="mt-4 bg-neutral-50/90 border border-neutral-300 rounded-lg p-4 sm:p-5 space-y-4">
-                                        <div className="border-b border-neutral-200 pb-3">
-                                          <h5 className="text-xs font-bold text-neutral-900 tracking-tight">
-                                            Provide GitHub repository link and benchmark URL
-                                          </h5>
-                                          <p className="text-[11px] text-neutral-500 mt-0.5">
-                                            Submit your code, migration scripts, and benchmark evidence for Week {mod.week} evaluation.
-                                          </p>
+                                        <div className="border-b border-neutral-200 pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                          <div>
+                                            <h5 className="text-xs font-bold text-neutral-900 tracking-tight">
+                                              Provide GitHub repository link and benchmark URL
+                                            </h5>
+                                            <p className="text-[11px] text-neutral-500 mt-0.5">
+                                              Submit your code, migration scripts, and benchmark evidence for Week {mod.week} evaluation.
+                                            </p>
+                                          </div>
+                                          <button
+                                            type="button"
+                                            onClick={() => {
+                                              setInlineGithub('https://github.com/alexrivera-cs/database-indexing-pg');
+                                              setInlineLive('https://benchmarks.alexrivera.cs/p99-latency');
+                                              setInlineNotes('Implemented partial B-Tree indexing on customer_orders(created_at, status). Configured PgBouncer transaction pooling reducing P99 latency from 180ms to 12ms under 5k RPS.');
+                                            }}
+                                            className="self-start sm:self-auto px-2.5 py-1 bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-700 rounded text-[11px] font-mono font-medium shadow-xs transition-colors flex items-center gap-1.5"
+                                          >
+                                            <span>⚡</span> Auto-fill Demo PR
+                                          </button>
                                         </div>
 
                                         {inlineSuccessMsg && (
