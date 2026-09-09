@@ -1,0 +1,444 @@
+import { DatabaseSchema } from '@/types';
+
+export const initialData: DatabaseSchema = {
+  users: [
+    {
+      id: 'usr_prof_1',
+      name: 'Dr. Aris Thorne',
+      email: 'professor@stanford.edu',
+      password: 'password123',
+      role: 'admin',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+      headline: 'Professor of Distributed Systems & AI Research Lead',
+      college: 'Stanford Institute of Computing & Intelligence',
+      joinedAt: '2023-01-10T00:00:00.000Z'
+    },
+    {
+      id: 'usr_student_1',
+      name: 'Alex Rivera',
+      email: 'alex.rivera@cs.edu',
+      password: 'password123',
+      role: 'student',
+      avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&auto=format&fit=crop&q=80',
+      headline: 'CS Junior @ UC Berkeley | Aspiring Systems Architect',
+      college: 'University of California, Berkeley',
+      joinedAt: '2024-02-15T00:00:00.000Z'
+    },
+    {
+      id: 'usr_student_2',
+      name: 'Maya Chen',
+      email: 'maya.chen@mit.edu',
+      password: 'password123',
+      role: 'student',
+      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&auto=format&fit=crop&q=80',
+      headline: 'M.S. in Artificial Intelligence @ MIT',
+      college: 'Massachusetts Institute of Technology',
+      joinedAt: '2023-11-20T00:00:00.000Z'
+    }
+  ],
+  internships: [
+    {
+      id: 'int_aiml_101',
+      title: 'Deep Learning, LLMs & Neural Architectures',
+      slug: 'deep-learning-llms-neural-architectures',
+      domain: 'AI/ML',
+      durationWeeks: 8,
+      fee: 299,
+      level: 'Advanced',
+      description: 'Hands-on applied research internship focusing on transformer architectures, fine-tuning state-of-the-art open models (Llama 3, Mistral), multi-modal embeddings, and low-latency inference optimization.',
+      highlights: [
+        'Build and fine-tune transformer models from scratch using PyTorch',
+        'Implement LoRA, QLoRA, and FlashAttention optimizations',
+        'Deploy production RAG pipelines with vector databases (Pinecone, Milvus)',
+        'Co-author research technical report with Dr. Thorne'
+      ],
+      prerequisites: [
+        'Proficiency in Python and PyTorch / JAX',
+        'Solid foundation in Linear Algebra, Probability, and Gradient Descent',
+        'Basic familiarity with Git & Linux command line'
+      ],
+      skills: ['PyTorch', 'Hugging Face', 'Transformers', 'CUDA Kernels', 'LangChain', 'vLLM', 'Vector DBs'],
+      instructor: {
+        name: 'Dr. Aris Thorne',
+        title: 'Principal Research Scientist & Professor of CS',
+        institution: 'Stanford AI & Systems Lab',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+        bio: 'Dr. Thorne directs cutting-edge research in distributed deep learning systems, published 40+ papers in NeurIPS, ICML, and OSDI, and previously advised AI infrastructure at top tech companies.'
+      },
+      syllabus: [
+        {
+          week: 1,
+          title: 'Foundations of Attention & Scaled Matrix Operations',
+          description: 'Deep dive into Self-Attention, Multi-Head Attention, positional encodings, and numerical stability in fp16/bf16.',
+          deliverables: 'Custom mini-Transformer implementation in pure PyTorch evaluating Wikitext-2 perplexity.',
+          resources: [
+            { label: 'Attention Is All You Need Paper', url: 'https://arxiv.org/abs/1706.03762', type: 'doc' },
+            { label: 'PyTorch Transformer Architecture Guide', url: 'https://pytorch.org/tutorials/beginner/transformer_tutorial.html', type: 'doc' },
+            { label: 'Starter GitHub Lab Repository', url: 'https://github.com/cs-internships/transformer-scratch-lab', type: 'repo' }
+          ]
+        },
+        {
+          week: 2,
+          title: 'Fine-Tuning Strategies: LoRA, QLoRA & PEFT',
+          description: 'Parameter-efficient fine-tuning on domain-specific datasets. Quantization techniques (4-bit/8-bit bitsandbytes).',
+          deliverables: 'Fine-tuned 7B parameter model notebook, checkpoint weights, and evaluation benchmark.',
+          resources: [
+            { label: 'LoRA Research Paper', url: 'https://arxiv.org/abs/2106.09685', type: 'doc' },
+            { label: 'HuggingFace PEFT Documentation', url: 'https://huggingface.co/docs/peft', type: 'doc' }
+          ]
+        },
+        {
+          week: 3,
+          title: 'Production RAG & Vector Retrieval Engines',
+          description: 'Hybrid sparse-dense retrieval, reranking algorithms, semantic chunking, and metadata filtering.',
+          deliverables: 'Enterprise documentation QA service using hybrid search and evaluation via RAGAS metric suite.',
+          resources: [
+            { label: 'Pinecone Vector Search Best Practices', url: 'https://www.pinecone.io/learn', type: 'doc' }
+          ]
+        },
+        {
+          week: 4,
+          title: 'LLM Serving, Batching & Inference Optimization',
+          description: 'KV cache management, PagedAttention, speculative decoding, and vLLM benchmarking.',
+          deliverables: 'Low-latency streaming API service serving 50+ concurrent requests under 15ms TTFT.',
+          resources: [
+            { label: 'vLLM PagedAttention Paper', url: 'https://arxiv.org/abs/2309.06180', type: 'doc' }
+          ]
+        }
+      ],
+      seatsTotal: 30,
+      seatsLeft: 6,
+      isOpen: true,
+      startDate: '2026-10-01',
+      rating: 4.95,
+      reviewsCount: 128
+    },
+    {
+      id: 'int_fullstack_201',
+      title: 'Full-Stack Systems & Scalable Microservices',
+      slug: 'full-stack-systems-scalable-microservices',
+      domain: 'Full Stack Development',
+      durationWeeks: 8,
+      fee: 249,
+      level: 'Intermediate',
+      description: 'Master full-stack distributed web engineering from reactive client applications to distributed databases, WebSockets, background job workers, and edge caching.',
+      highlights: [
+        'Build high-concurrency applications using Next.js 14, TypeScript, and Tailwind',
+        'Design resilient relational and document schemas (PostgreSQL, Prisma, Redis)',
+        'Implement real-time bidirectional communication via WebSockets and SSE',
+        'Containerize and deploy with Docker, Nginx reverse proxy, and CI/CD pipelines'
+      ],
+      prerequisites: [
+        'Proficiency in JavaScript/TypeScript and React fundamentals',
+        'Basic understanding of HTTP protocols, REST APIs, and relational databases'
+      ],
+      skills: ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Redis', 'Docker', 'WebSockets'],
+      instructor: {
+        name: 'Dr. Aris Thorne',
+        title: 'Principal Research Scientist & Professor of CS',
+        institution: 'Stanford AI & Systems Lab',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+        bio: 'Dr. Thorne has designed fault-tolerant distributed backends handling tens of millions of queries per second for academic consortia and high-traffic open-source infrastructure.'
+      },
+      syllabus: [
+        {
+          week: 1,
+          title: 'Modern Next.js App Router & Server Components',
+          description: 'Streaming SSR, Suspense boundaries, Server Actions, and optimal caching strategies.',
+          deliverables: 'Production-ready dashboard with dynamic data fetching and instantaneous optimistic UI updates.',
+          resources: [
+            { label: 'Next.js Official Documentation', url: 'https://nextjs.org/docs', type: 'doc' },
+            { label: 'Starter Template Repo', url: 'https://github.com/cs-internships/next-fullstack-starter', type: 'repo' }
+          ]
+        },
+        {
+          week: 2,
+          title: 'Database Architecture, Indexing & ACID Transactions',
+          description: 'PostgreSQL schema optimization, B-Tree indexes, foreign key constraints, connection pooling with PgBouncer.',
+          deliverables: 'Database migration script and performance benchmark resolving N+1 queries.',
+          resources: [
+            { label: 'Use The Index, Luke! Guide', url: 'https://use-the-index-luke.com', type: 'doc' }
+          ]
+        },
+        {
+          week: 3,
+          title: 'Asynchronous Queues & In-Memory Caching with Redis',
+          description: 'Message brokers, BullMQ job queues, rate limiters (Token Bucket), and distributed cache invalidation.',
+          deliverables: 'Background image processing and notification engine with retry semantics.',
+          resources: [
+            { label: 'Redis Patterns and Practice', url: 'https://redis.io/resources', type: 'doc' }
+          ]
+        },
+        {
+          week: 4,
+          title: 'Comprehensive Security, Auth, RBAC & End-to-End Capstone',
+          description: 'OAuth2/OIDC, JWT rotation, CSRF protection, Content Security Policy, and live cloud deployment.',
+          deliverables: 'Complete capstone project repository with live production URL and automated GitHub Actions CI/CD.',
+          resources: [
+            { label: 'OWASP Security Verification Standard', url: 'https://owasp.org/www-project-application-security-verification-standard', type: 'doc' }
+          ]
+        }
+      ],
+      seatsTotal: 40,
+      seatsLeft: 11,
+      isOpen: true,
+      startDate: '2026-10-05',
+      rating: 4.88,
+      reviewsCount: 142
+    },
+    {
+      id: 'int_cloud_301',
+      title: 'Cloud Infrastructure, Kubernetes & GitOps',
+      slug: 'cloud-infrastructure-kubernetes-gitops',
+      domain: 'Cloud & DevOps',
+      durationWeeks: 6,
+      fee: 279,
+      level: 'Advanced',
+      description: 'Design, provision, and maintain production-grade multi-region cloud infrastructures using Terraform, Kubernetes cluster orchestration, Prometheus observability, and automated GitOps with ArgoCD.',
+      highlights: [
+        'Provision AWS/GCP infrastructure as code with modular Terraform',
+        'Deploy resilient Kubernetes clusters with custom CRDs, Ingress, and Autoscalers (HPA/KEDA)',
+        'Establish automated zero-downtime canary deployments with ArgoCD and Istio service mesh',
+        'Build comprehensive Grafana dashboards and alert rules'
+      ],
+      prerequisites: [
+        'Comfortable with Linux system administration, shell scripting, and networking fundamentals (TCP/IP, DNS)',
+        'Basic Docker containerization knowledge'
+      ],
+      skills: ['Kubernetes', 'Terraform', 'Docker', 'AWS', 'ArgoCD', 'Prometheus', 'Helm', 'CI/CD'],
+      instructor: {
+        name: 'Dr. Aris Thorne',
+        title: 'Principal Research Scientist & Professor of CS',
+        institution: 'Stanford AI & Systems Lab',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+        bio: 'Oversees scalable compute clusters supporting machine learning research at Stanford with over 10,000 GPU nodes.'
+      },
+      syllabus: [
+        {
+          week: 1,
+          title: 'Infrastructure as Code (IaC) with Terraform & Multi-Cloud VPCs',
+          description: 'Terraform state management, remote backends, IAM least-privilege, and VPC subnet architectures.',
+          deliverables: 'Reproducible Terraform module deploying an isolated VPC, NAT Gateways, and bastion host.'
+        },
+        {
+          week: 2,
+          title: 'Kubernetes Deep Dive: Pod Scheduling, Networking & CNI',
+          description: 'Cluster control plane internals, kube-proxy, Calico CNI, persistent volume claims, and ConfigMaps/Secrets.',
+          deliverables: 'Multi-service deployment manifests with ingress TLS certificates and readiness probes.'
+        },
+        {
+          week: 3,
+          title: 'GitOps CI/CD Pipelines & Continuous Delivery with ArgoCD',
+          description: 'Declarative cluster sync, rollbacks, blue-green deployment pipelines, and secrets encryption with SOPS.',
+          deliverables: 'Live GitOps workflow automatically reconciling commits to a staging cluster.'
+        }
+      ],
+      seatsTotal: 25,
+      seatsLeft: 4,
+      isOpen: true,
+      startDate: '2026-10-15',
+      rating: 4.92,
+      reviewsCount: 89
+    },
+    {
+      id: 'int_cyber_401',
+      title: 'Offensive Security, Penetration Testing & Cryptography',
+      slug: 'offensive-security-penetration-testing-cryptography',
+      domain: 'Cybersecurity',
+      durationWeeks: 6,
+      fee: 269,
+      level: 'Intermediate',
+      description: 'Hands-on practical security research covering modern web vulnerabilities, binary exploitation fundamentals, protocol analysis, and post-quantum cryptographic primitives.',
+      highlights: [
+        'Conduct ethical penetration tests on simulated enterprise web perimeters',
+        'Exploit OWASP Top 10 vulnerabilities (SSRF, SQLi, IDOR, deserialization)',
+        'Analyze network captures using Wireshark and write Snort detection signatures',
+        'Implement modern public-key and symmetric cryptographic protocols'
+      ],
+      prerequisites: [
+        'Basic knowledge of Python or C/C++',
+        'Understanding of web architecture, HTTP, and networking protocols'
+      ],
+      skills: ['Penetration Testing', 'Burp Suite', 'Wireshark', 'Cryptography', 'Linux Security', 'OWASP', 'Metasploit'],
+      instructor: {
+        name: 'Dr. Aris Thorne',
+        title: 'Principal Research Scientist & Professor of CS',
+        institution: 'Stanford AI & Systems Lab',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+        bio: 'Dr. Thorne has contributed to high-impact security advisories and teaches Stanford’s advanced computer security seminars.'
+      },
+      syllabus: [
+        {
+          week: 1,
+          title: 'Web Application Security & Advanced Exploitation',
+          description: 'In-depth review of SSRF, Race Conditions, JWT tampering, and Blind SQL injection.',
+          deliverables: 'Formal penetration testing report identifying 5 vulnerabilities on the internship lab target.'
+        },
+        {
+          week: 2,
+          title: 'Applied Cryptography & Secure Protocol Design',
+          description: 'RSA, Elliptic Curve Cryptography (ECDSA), Diffie-Hellman Key Exchange, and AES-GCM implementations.',
+          deliverables: 'End-to-end encrypted messaging CLI tool with cryptographic forward secrecy.'
+        }
+      ],
+      seatsTotal: 25,
+      seatsLeft: 8,
+      isOpen: true,
+      startDate: '2026-10-20',
+      rating: 4.97,
+      reviewsCount: 76
+    }
+  ],
+  applications: [
+    {
+      id: 'app_alex_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_1',
+      appliedAt: '2026-08-20T10:30:00.000Z',
+      paymentStatus: 'paid',
+      paymentDetails: {
+        transactionId: 'TXN_SIM_987421890',
+        method: 'Razorpay UPI (Google Pay)',
+        amount: 299,
+        currency: 'USD',
+        paidAt: '2026-08-20T10:35:00.000Z',
+        receiptNumber: 'RCP-2026-0820'
+      },
+      status: 'enrolled'
+    },
+    {
+      id: 'app_maya_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_2',
+      appliedAt: '2026-06-01T09:15:00.000Z',
+      paymentStatus: 'paid',
+      paymentDetails: {
+        transactionId: 'TXN_SIM_512984123',
+        method: 'Stripe Credit Card (Visa ****4242)',
+        amount: 299,
+        currency: 'USD',
+        paidAt: '2026-06-01T09:20:00.000Z',
+        receiptNumber: 'RCP-2026-0601'
+      },
+      status: 'completed',
+      finalGrade: 'Grade A+ (Distinction)',
+      completedAt: '2026-08-01T14:00:00.000Z'
+    }
+  ],
+  submissions: [
+    {
+      id: 'sub_alex_week1',
+      applicationId: 'app_alex_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_1',
+      weekNumber: 1,
+      taskTitle: 'Foundations of Attention & Scaled Matrix Operations',
+      githubUrl: 'https://github.com/alexrivera-cs/mini-transformer-pytorch',
+      liveUrl: 'https://alex-transformer-eval.demo.app',
+      notes: 'Implemented multi-head attention with causal masking and numerical stability clamping. Perplexity reached 24.3 on Wikitext-2 after 10 epochs.',
+      submittedAt: '2026-08-25T16:45:00.000Z',
+      status: 'approved',
+      score: 96,
+      feedback: 'Exceptional work, Alex! Your matrix multiplication optimization and causal masking logic were mathematically rigorous. Clean modular code and comprehensive unit tests.',
+      gradedAt: '2026-08-26T11:20:00.000Z',
+      gradedBy: 'Dr. Aris Thorne'
+    },
+    {
+      id: 'sub_alex_week2',
+      applicationId: 'app_alex_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_1',
+      weekNumber: 2,
+      taskTitle: 'Fine-Tuning Strategies: LoRA, QLoRA & PEFT',
+      githubUrl: 'https://github.com/alexrivera-cs/qlora-7b-finetune',
+      liveUrl: 'https://huggingface.co/spaces/alexrivera/medical-reasoning-lora',
+      notes: 'Quantized base model using 4-bit NormalFloat (NF4) with double quantization. LoRA rank set to r=16, alpha=32. Converged with 0.89 F1 on domain extraction.',
+      submittedAt: '2026-09-02T19:10:00.000Z',
+      status: 'under_review'
+    },
+    {
+      id: 'sub_maya_week1',
+      applicationId: 'app_maya_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_2',
+      weekNumber: 1,
+      taskTitle: 'Foundations of Attention & Scaled Matrix Operations',
+      githubUrl: 'https://github.com/mayachen-mit/transformer-foundations',
+      liveUrl: 'https://maya-attention-viz.demo.app',
+      notes: 'Complete attention mechanism implementation with dynamic heatmaps visualizing self-attention head alignments.',
+      submittedAt: '2026-06-10T14:30:00.000Z',
+      status: 'approved',
+      score: 98,
+      feedback: 'Flawless architecture and beautiful attention visualization tooling. Publish-grade code.',
+      gradedAt: '2026-06-11T10:00:00.000Z',
+      gradedBy: 'Dr. Aris Thorne'
+    },
+    {
+      id: 'sub_maya_week2',
+      applicationId: 'app_maya_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_2',
+      weekNumber: 2,
+      taskTitle: 'Fine-Tuning Strategies: LoRA, QLoRA & PEFT',
+      githubUrl: 'https://github.com/mayachen-mit/qlora-adapter-benchmarks',
+      notes: 'Extensive benchmark across r=8, 16, 32, 64 ranks measuring memory overhead vs downstream token generation throughput.',
+      submittedAt: '2026-06-18T18:00:00.000Z',
+      status: 'approved',
+      score: 99,
+      feedback: 'Incredible comparative empirical benchmark. Outstanding rigor.',
+      gradedAt: '2026-06-19T14:00:00.000Z',
+      gradedBy: 'Dr. Aris Thorne'
+    },
+    {
+      id: 'sub_maya_week3',
+      applicationId: 'app_maya_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_2',
+      weekNumber: 3,
+      taskTitle: 'Production RAG & Vector Retrieval Engines',
+      githubUrl: 'https://github.com/mayachen-mit/hybrid-rag-milvus',
+      liveUrl: 'https://milvus-rag-demo.mayachen.io',
+      notes: 'Hybrid dense-sparse BM25 + BGE-large reranker with metadata filtering.',
+      submittedAt: '2026-06-25T11:00:00.000Z',
+      status: 'approved',
+      score: 97,
+      feedback: 'Very thoughtful latency optimization on the reranker stage.',
+      gradedAt: '2026-06-26T16:00:00.000Z',
+      gradedBy: 'Dr. Aris Thorne'
+    },
+    {
+      id: 'sub_maya_week4',
+      applicationId: 'app_maya_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_2',
+      weekNumber: 4,
+      taskTitle: 'LLM Serving, Batching & Inference Optimization',
+      githubUrl: 'https://github.com/mayachen-mit/vllm-serving-pipeline',
+      notes: 'Continuous batching engine with speculative decoding speedup of 2.1x.',
+      submittedAt: '2026-07-20T12:00:00.000Z',
+      status: 'approved',
+      score: 100,
+      feedback: 'Final capstone complete! Highest standard of engineering demonstrated. Certificate awarded with distinction.',
+      gradedAt: '2026-07-22T09:30:00.000Z',
+      gradedBy: 'Dr. Aris Thorne'
+    }
+  ],
+  certificates: [
+    {
+      id: 'cert_maya_aiml',
+      credentialId: 'CS-STANFORD-2026-89412',
+      applicationId: 'app_maya_aiml',
+      internshipId: 'int_aiml_101',
+      userId: 'usr_student_2',
+      studentName: 'Maya Chen',
+      internshipTitle: 'Deep Learning, LLMs & Neural Architectures',
+      domain: 'AI/ML',
+      durationWeeks: 8,
+      issueDate: 'August 1, 2026',
+      grade: 'Grade A+ (Distinction - Top 1%)',
+      instructorName: 'Dr. Aris Thorne',
+      instructorTitle: 'Principal Research Scientist & Professor of CS',
+      verificationUrl: 'https://cs-internships.edu/verify/CS-STANFORD-2026-89412'
+    }
+  ]
+};
