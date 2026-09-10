@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -77,19 +77,14 @@ export const CareerTiQNavbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0B63E5] to-blue-700 text-white flex items-center justify-center font-black text-xl shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                C
-              </div>
-              <div className="flex flex-col">
-                <div className="text-2xl font-black tracking-tight text-slate-900 leading-none">
-                  Career<span className="text-[#0B63E5]">TiQ</span>
-                </div>
-                <span className="text-[9px] font-bold tracking-widest text-slate-500 uppercase mt-0.5">
-                  Corporate & Tech Academy
-                </span>
-              </div>
+            {/* Exact CareerTiQ Logo */}
+            <Link href="/" className="flex items-center gap-2.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://careertiq.com/wp-content/uploads/2023/12/careertiq-logo-1.png"
+                alt="CareerTiQ"
+                className="h-10 sm:h-12 w-auto object-contain"
+              />
             </Link>
 
             {/* Desktop Navigation Links */}
@@ -102,7 +97,7 @@ export const CareerTiQNavbar: React.FC = () => {
               >
                 <button 
                   className={`flex items-center gap-1.5 text-sm font-semibold transition-colors py-2 ${
-                    pathname.startsWith('/programs') ? 'text-[#0B63E5]' : 'text-slate-700 hover:text-[#0B63E5]'
+                    pathname.startsWith('/programs') ? 'text-[#007BC6]' : 'text-[#222222] hover:text-[#007BC6]'
                   }`}
                 >
                   <span>Graduate Programs</span>
@@ -111,7 +106,7 @@ export const CareerTiQNavbar: React.FC = () => {
 
                 {/* Dropdown Menu */}
                 {programsDropdownOpen && (
-                  <div className="absolute top-full left-0 w-[540px] bg-white rounded-2xl shadow-2xl border border-slate-100 p-5 grid grid-cols-2 gap-3 animate-fadeIn">
+                  <div className="absolute top-full left-0 w-[560px] bg-white rounded-xl shadow-2xl border border-slate-100 p-5 grid grid-cols-2 gap-3 animate-fadeIn z-50">
                     {CAREERTIQ_PROGRAMS.map((prog) => {
                       const Icon = getDomainIcon(prog.slug);
                       return (
@@ -119,13 +114,13 @@ export const CareerTiQNavbar: React.FC = () => {
                           key={prog.slug}
                           href={`/programs/${prog.slug}`}
                           onClick={() => setProgramsDropdownOpen(false)}
-                          className="p-3.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all flex flex-col group"
+                          className="p-3 rounded-lg hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all flex flex-col group"
                         >
-                          <div className="flex items-center gap-2.5 mb-1.5">
-                            <div className="p-2 rounded-lg bg-blue-50 text-[#0B63E5] group-hover:bg-[#0B63E5] group-hover:text-white transition-colors">
+                          <div className="flex items-center gap-2.5 mb-1">
+                            <div className="p-2 rounded-md bg-blue-50 text-[#007BC6] group-hover:bg-[#007BC6] group-hover:text-white transition-colors">
                               <Icon className="w-4 h-4" />
                             </div>
-                            <span className="text-xs font-bold text-slate-900 group-hover:text-[#0B63E5]">
+                            <span className="text-xs font-bold text-[#222222] group-hover:text-[#007BC6]">
                               {prog.domain}
                             </span>
                           </div>
@@ -140,7 +135,7 @@ export const CareerTiQNavbar: React.FC = () => {
                       <Link 
                         href="/programs/deep-tech" 
                         onClick={() => setProgramsDropdownOpen(false)}
-                        className="text-[#0B63E5] font-bold hover:underline flex items-center gap-1"
+                        className="text-[#007BC6] font-bold hover:underline flex items-center gap-1"
                       >
                         Browse All Tracks <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
@@ -152,7 +147,7 @@ export const CareerTiQNavbar: React.FC = () => {
               <Link 
                 href="/about" 
                 className={`text-sm font-semibold transition-colors ${
-                  pathname === '/about' ? 'text-[#0B63E5]' : 'text-slate-700 hover:text-[#0B63E5]'
+                  pathname === '/about' ? 'text-[#007BC6]' : 'text-[#222222] hover:text-[#007BC6]'
                 }`}
               >
                 About Us
@@ -161,31 +156,33 @@ export const CareerTiQNavbar: React.FC = () => {
               <Link 
                 href="/events" 
                 className={`text-sm font-semibold transition-colors flex items-center gap-1.5 ${
-                  pathname === '/events' ? 'text-[#0B63E5]' : 'text-slate-700 hover:text-[#0B63E5]'
+                  pathname === '/events' ? 'text-[#007BC6]' : 'text-[#222222] hover:text-[#007BC6]'
                 }`}
               >
                 <span>Events & Masterclasses</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#FF7707] animate-pulse" />
               </Link>
 
               <Link 
                 href="/hire-from-us" 
                 className={`text-sm font-semibold transition-colors ${
-                  pathname === '/hire-from-us' ? 'text-[#0B63E5]' : 'text-slate-700 hover:text-[#0B63E5]'
+                  pathname === '/hire-from-us' ? 'text-[#007BC6]' : 'text-[#222222] hover:text-[#007BC6]'
                 }`}
               >
                 Hire From Us
               </Link>
             </nav>
 
-            {/* Right Action CTA */}
+            {/* Right Action CTA - Exact CareerTiQ orange button */}
             <div className="hidden sm:flex items-center gap-3">
               <button
                 onClick={() => setContactModalOpen(true)}
-                className="px-6 py-2.5 rounded-full bg-[#0B63E5] hover:bg-[#0952be] text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 transition-all flex items-center gap-2 group"
+                className="px-6 py-2.5 rounded-full bg-[#FF7707] hover:bg-[#e06804] text-white text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-2 group"
               >
-                <span>Get in Touch</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <span>Get In Touch</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 22 12" fill="none" className="group-hover:translate-x-0.5 transition-transform">
+                  <path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75V5.25ZM21.5303 6.53033C21.8232 6.23744 21.8232 5.76256 21.5303 5.46967L16.7574 0.696699C16.4645 0.403806 15.9896 0.403806 15.6967 0.696699C15.4038 0.989593 15.4038 1.46447 15.6967 1.75736L19.9393 6L15.6967 10.2426C15.4038 10.5355 15.4038 11.0104 15.6967 11.3033C15.9896 11.5962 16.4645 11.5962 16.7574 11.3033L21.5303 6.53033ZM1 6.75H21V5.25H1V6.75Z" fill="#FFFFFF"/>
+                </svg>
               </button>
             </div>
 
