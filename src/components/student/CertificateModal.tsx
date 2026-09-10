@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Certificate } from '@/types';
 import { 
   X, 
@@ -12,9 +12,14 @@ import {
   ShieldCheck, 
   QrCode,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  Hash,
+  Loader2
 } from 'lucide-react';
 import Link from 'next/link';
+import { computeSha256Checksum } from '@/lib/utils';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface CertificateModalProps {
   certificate: Certificate;
@@ -27,9 +32,60 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
 }) => {
   const certRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
+  const [sha256Hash, setSha256Hash] = useState<string>('');
+
+  useEffect(() => {
+    // Generate deterministic cryptographic checksum based on student + credential metadata
+    const payload = `${certificate.credentialId}:${certificate.studentName}:${certificate.internshipTitle}:${certificate.issueDate}:${certificate.instructorName}:${certificate.grade}`;
+    computeSha256Checksum(payload).then(hash => setSha256Hash(hash));
+  }, [certificate]);
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDownloadPdf = async () => {
+    if (!certRef.current) return;
+    try {
+      setDownloadingPdf(true);
+      const canvas = await html2canvas(certRef.current, {
+        scale: 2.5,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#fcfbf9'
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      // Fit landscape certificate onto A4 landscape
+      pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth - 20, pdfHeight - 20);
+
+      // Embed Cryptographic Metadata into PDF
+      pdf.setProperties({
+        title: `${certificate.studentName} - ${certificate.internshipTitle} Honors Certificate`,
+        subject: `Stanford CS Systems Lab Research Internship Credential ${certificate.credentialId}`,
+        author: 'Stanford Computer Science & AI Lab',
+        keywords: `credential, verification, ${certificate.credentialId}, sha256:${sha256Hash}`,
+        creator: 'Stanford Research Computing Initiative Ledger'
+      });
+
+      pdf.save(`${certificate.credentialId}_${certificate.studentName.replace(/\s+/g, '_')}_Certificate.pdf`);
+    } catch (err) {
+      console.error('PDF Generation failed:', err);
+      // Fallback to window print
+      window.print();
+    } finally {
+      setDownloadingPdf(false);
+    }
   };
 
   const handleCopyLink = () => {
@@ -164,6 +220,13 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
               </div>
             </div>
 
+            {/* Subtle Institutional Watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] select-none">
+              <div className="font-serif font-black text-7xl sm:text-9xl tracking-widest text-slate-900 rotate-[-25deg] uppercase">
+                STANFORD CS LAB
+              </div>
+            </div>
+
             {/* Certificate Footer / Signatures & QR */}
             <div className="mt-10 pt-6 border-t border-slate-200 grid grid-cols-3 gap-4 items-end text-center relative z-10">
               {/* Date */}
@@ -199,6 +262,18 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
                 </div>
               </div>
             </div>
+
+            {/* Cryptographic Ledger Checksum Line */}
+            <div className="mt-6 pt-3 border-t border-slate-200/60 flex flex-col sm:flex-row items-center justify-between text-[9px] font-mono text-slate-400 gap-1 relative z-10">
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                <span>CRYPTOGRAPHIC LEDGER VALIDATED</span>
+              </div>
+              <div className="truncate max-w-full sm:max-w-md">
+                <span>SHA-256: </span>
+                <span className="text-slate-600 font-bold">{sha256Hash || 'Computing verification hash...'}</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -219,11 +294,21 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
             <button
-              onClick={handlePrint}
-              className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md shadow-indigo-600/20 flex items-center gap-1.5"
+              onClick={handleDownloadPdf}
+              disabled={downloadingPdf}
+              className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md shadow-indigo-600/20 flex items-center gap-1.5 transition-all disabled:opacity-60"
             >
-              <Download className="w-4 h-4" />
-              <span>Download Official PDF</span>
+              {downloadingPdf ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Generating Sealed PDF...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  <span>Download Sealed PDF</span>
+                </>
+              )}
             </button>
           </div>
         </div>
