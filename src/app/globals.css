@@ -1,9 +1,9 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
+  --background: #ffffff;
   --foreground: #0f172a;
 }
 
@@ -26,27 +26,19 @@ body {
   }
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Print stylesheet for high-res official certificate export */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  #printable-certificate, #printable-certificate * {
-    visibility: visible;
-  }
-  #printable-certificate {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 2rem !important;
-    box-shadow: none !important;
-    border: 8px solid #0f172a !important;
-  }
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
-  title: 'CS Research & Industry Internships | Dr. Aris Thorne',
-  description: 'Premier online Computer Science internships across AI/ML, Full Stack Development, Cloud & DevOps, and Cybersecurity. Directed by Dr. Aris Thorne.',
+  title: 'CareerTiQ | Corporate Skilling, Finishing School & Graduate Programs',
+  description: 'Embrace Innovation! Experience Transformation! CareerTiQ prepares engineers and graduates in DeepTech, FinTech, MediaTech, and Global Corporate Languages.',
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+      <body className="antialiased min-h-screen flex flex-col selection:bg-[#0B63E5] selection:text-white bg-white text-slate-900">
         <AuthProvider>
           {children}
         </AuthProvider>
