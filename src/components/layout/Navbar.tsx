@@ -15,7 +15,9 @@ import {
   Sparkles, 
   BookOpen, 
   Award,
-  ChevronDown
+  ChevronDown,
+  Bell,
+  CheckCircle2
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -23,6 +25,30 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loadingDemo, setLoadingDemo] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    {
+      id: 'n1',
+      title: 'Faculty Grade Recorded',
+      desc: 'Dr. Aris Thorne approved Milestone 01 with score 94/100.',
+      time: '1h ago',
+      read: false
+    },
+    {
+      id: 'n2',
+      title: 'Milestone 02 Evaluation Queued',
+      desc: 'Pull request automated benchmark checks ready for review.',
+      time: '3h ago',
+      read: false
+    },
+    {
+      id: 'n3',
+      title: 'Lab Credential Ready',
+      desc: 'Distinction honors certificate minted on institutional ledger.',
+      time: '1d ago',
+      read: true
+    }
+  ]);
 
   const handleQuickDemo = async (demoId: string) => {
     setLoadingDemo(true);
@@ -138,6 +164,45 @@ export const Navbar: React.FC = () => {
                       <span>My Workspace</span>
                     </Link>
                   )}
+
+                  {/* Notification Center Popover */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setNotifOpen(!notifOpen)}
+                      className="p-1.5 rounded-md text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition-colors relative"
+                      title="Lab Notifications"
+                    >
+                      <Bell className="w-4 h-4" />
+                      {notifications.some(n => !n.read) && (
+                        <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-indigo-600 ring-2 ring-white" />
+                      )}
+                    </button>
+
+                    {notifOpen && (
+                      <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-neutral-200 py-2 z-50 animate-fadeIn text-xs">
+                        <div className="px-3.5 py-2 border-b border-neutral-100 flex items-center justify-between">
+                          <span className="font-bold text-neutral-900">Lab Activity Feed</span>
+                          <button
+                            onClick={() => setNotifications(prev => prev.map(n => ({ ...n, read: true })))}
+                            className="text-[10px] text-indigo-600 hover:underline"
+                          >
+                            Mark all read
+                          </button>
+                        </div>
+                        <div className="max-h-64 overflow-y-auto divide-y divide-neutral-100">
+                          {notifications.map(n => (
+                            <div key={n.id} className={`p-3 hover:bg-neutral-50 transition-colors ${!n.read ? 'bg-indigo-50/40' : ''}`}>
+                              <div className="flex items-baseline justify-between mb-0.5">
+                                <span className="font-semibold text-neutral-900 text-[11px]">{n.title}</span>
+                                <span className="text-[10px] font-mono text-neutral-400">{n.time}</span>
+                              </div>
+                              <p className="text-[11px] text-neutral-600 leading-snug">{n.desc}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                   <div className="flex items-center gap-2.5">
                     {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -153,18 +153,41 @@ function VerifyContent() {
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                     <div className="text-xs text-slate-500">
                       Signed: <span className="font-semibold text-slate-800">{certificate.instructorName}</span>
                     </div>
 
-                    <button
-                      onClick={() => setShowFullCert(true)}
-                      className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md flex items-center gap-1.5"
-                    >
-                      <Award className="w-4 h-4" />
-                      <span>Inspect Official Certificate</span>
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(
+                          `${certificate.internshipTitle} - Research Internship`
+                        )}&organizationName=${encodeURIComponent('Stanford CS Systems Lab')}&issueYear=${new Date(
+                          certificate.issueDate
+                        ).getFullYear()}&issueMonth=${new Date(
+                          certificate.issueDate
+                        ).getMonth() + 1}&certUrl=${encodeURIComponent(
+                          typeof window !== 'undefined' ? `${window.location.origin}/verify?id=${certificate.credentialId}` : ''
+                        )}&certId=${encodeURIComponent(certificate.credentialId)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-1.5 rounded-xl bg-[#0077B5] hover:bg-[#005f93] text-white font-semibold text-xs shadow-xs flex items-center gap-1.5 transition-colors"
+                        title="Add verified badge to LinkedIn"
+                      >
+                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.57 1.57 0 1 0 0 3.14 1.57 1.57 0 0 0 0-3.14z"/>
+                        </svg>
+                        <span>Add to LinkedIn</span>
+                      </a>
+
+                      <button
+                        onClick={() => setShowFullCert(true)}
+                        className="px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md flex items-center gap-1.5"
+                      >
+                        <Award className="w-4 h-4" />
+                        <span>Inspect Official Certificate</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               ) : (

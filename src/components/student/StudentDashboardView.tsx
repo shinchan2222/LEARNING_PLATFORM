@@ -16,7 +16,12 @@ import {
   Clock,
   AlertCircle,
   Award,
-  Code2
+  Code2,
+  Play,
+  Terminal as TerminalIcon,
+  CheckCircle,
+  XCircle,
+  Calendar as CalendarIcon
 } from 'lucide-react';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import CertificateModal from './CertificateModal';
@@ -41,6 +46,15 @@ export const StudentDashboardView: React.FC = () => {
   const [inlineNotes, setInlineNotes] = useState('');
   const [inlineSubmitting, setInlineSubmitting] = useState(false);
   const [inlineSuccessMsg, setInlineSuccessMsg] = useState('');
+
+  // CI/CD Automated Test Suite Simulation
+  const [ciRunning, setCiRunning] = useState(false);
+  const [ciResult, setCiResult] = useState<{
+    passed: boolean;
+    tests: { name: string; duration: string; status: 'pass' | 'fail' }[];
+    benchmark: string;
+    coverage: string;
+  } | null>(null);
 
   // Global Submission Form State (Tab 2)
   const [subWeek, setSubWeek] = useState<number>(1);
@@ -140,6 +154,30 @@ export const StudentDashboardView: React.FC = () => {
     } finally {
       setInlineSubmitting(false);
     }
+  };
+
+  const handleRunCiSuite = () => {
+    if (!inlineGithub) {
+      alert('Please provide or auto-fill a GitHub repository URL first.');
+      return;
+    }
+    setCiRunning(true);
+    setCiResult(null);
+
+    setTimeout(() => {
+      setCiRunning(false);
+      setCiResult({
+        passed: true,
+        tests: [
+          { name: 'db:migration:integrity_check', duration: '142ms', status: 'pass' },
+          { name: 'benchmark:p99_latency_sla (<15ms)', duration: '840ms', status: 'pass' },
+          { name: 'concurrency:pool_exhaustion_stress', duration: '1.2s', status: 'pass' },
+          { name: 'security:sql_injection_sanitization', duration: '310ms', status: 'pass' }
+        ],
+        benchmark: '12.4ms P99 @ 5,000 req/sec',
+        coverage: '96.8% branch coverage'
+      });
+    }, 1800);
   };
 
   const handleSubmitMilestone = async (e: React.FormEvent) => {
@@ -806,6 +844,62 @@ export const StudentDashboardView: React.FC = () => {
                                               placeholder="Summarize indexing strategy (B-Tree vs Hash), EXPLAIN ANALYZE latency gains, and connection pool sizing with PgBouncer..."
                                               className="w-full p-3 border border-neutral-300 rounded-md text-xs text-neutral-900 bg-white outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 resize-y"
                                             />
+                                          </div>
+
+                                          {/* Automated CI/CD Testing Suite Simulation */}
+                                          <div className="bg-neutral-900 text-neutral-100 rounded-md p-3.5 space-y-2.5 font-mono text-[11px]">
+                                            <div className="flex items-center justify-between border-b border-neutral-700/80 pb-2">
+                                              <div className="flex items-center gap-2">
+                                                <TerminalIcon className="w-3.5 h-3.5 text-indigo-400" />
+                                                <span className="font-semibold text-white">CI/CD Pre-Submission Check</span>
+                                              </div>
+                                              <button
+                                                type="button"
+                                                onClick={handleRunCiSuite}
+                                                disabled={ciRunning}
+                                                className="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-medium flex items-center gap-1.5 transition-colors disabled:opacity-50"
+                                              >
+                                                {ciRunning ? (
+                                                  <>
+                                                    <span className="w-2.5 h-2.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                    <span>Running Suites...</span>
+                                                  </>
+                                                ) : (
+                                                  <>
+                                                    <Play className="w-3 h-3 fill-current" />
+                                                    <span>Run Automated Checks</span>
+                                                  </>
+                                                )}
+                                              </button>
+                                            </div>
+
+                                            {ciResult ? (
+                                              <div className="space-y-2 pt-1 animate-fadeIn">
+                                                <div className="flex items-center justify-between text-[10px] text-neutral-400">
+                                                  <span>Checks: 4/4 Passed</span>
+                                                  <span>{ciResult.benchmark}</span>
+                                                </div>
+                                                <div className="space-y-1">
+                                                  {ciResult.tests.map((t, idx) => (
+                                                    <div key={idx} className="flex items-center justify-between text-neutral-300">
+                                                      <div className="flex items-center gap-1.5">
+                                                        <CheckCircle className="w-3 h-3 text-emerald-400" />
+                                                        <span>{t.name}</span>
+                                                      </div>
+                                                      <span className="text-neutral-500">{t.duration}</span>
+                                                    </div>
+                                                  ))}
+                                                </div>
+                                                <div className="pt-1 border-t border-neutral-800 flex items-center justify-between text-[10px] text-emerald-400">
+                                                  <span>✓ Artifacts verified & benchmarks met</span>
+                                                  <span>{ciResult.coverage}</span>
+                                                </div>
+                                              </div>
+                                            ) : (
+                                              <p className="text-[10px] text-neutral-400">
+                                                Optional: Run automated test suite against your repo to ensure SLA latency requirements are met before Dr. Thorne evaluates.
+                                              </p>
+                                            )}
                                           </div>
 
                                           <div className="pt-1 flex items-center justify-between gap-3">
