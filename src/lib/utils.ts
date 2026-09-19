@@ -31,7 +31,7 @@ export function generateId(prefix: string): string {
 
 export function generateCredentialId(): string {
   const randomNum = Math.floor(10000 + Math.random() * 90000);
-  return `CS-STANFORD-2026-${randomNum}`;
+  return `DEVOPS-${randomNum}`;
 }
 
 export async function computeSha256Checksum(message: string): Promise<string> {

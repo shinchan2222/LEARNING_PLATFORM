@@ -1,89 +1,81 @@
-'use client';
+import { Navbar } from '@/components/devops/Navbar';
+import { HeroSection } from '@/components/devops/HeroSection';
+import { ServicesSection } from '@/components/devops/ServicesSection';
+import { WhyUsSection } from '@/components/devops/WhyUsSection';
+import { TechStack } from '@/components/devops/TechStack';
+import { ProcessSection } from '@/components/devops/ProcessSection';
+import { PortfolioSection } from '@/components/devops/PortfolioSection';
+import { TestimonialsSection } from '@/components/devops/TestimonialsSection';
+import { StatsSection } from '@/components/devops/StatsSection';
+import { CtaBanner } from '@/components/devops/CtaBanner';
+import { ContactSection } from '@/components/devops/ContactSection';
+import { Footer } from '@/components/devops/Footer';
+import { getDb } from '@/lib/db';
+import { SERVICES, PORTFOLIO, TESTIMONIALS, STATS } from '@/data/devopsData';
 
-import React, { useState } from 'react';
-import { Navbar } from '@/components/seceon/Navbar';
-import { HeroSection } from '@/components/seceon/HeroSection';
-import { StatsBar } from '@/components/seceon/StatsBar';
-import { Ticker } from '@/components/seceon/Ticker';
-import { AutonomousSOC } from '@/components/seceon/AutonomousSOC';
-import { ProductSuite } from '@/components/seceon/ProductSuite';
-import { ModuleExploration } from '@/components/seceon/ModuleExploration';
-import { CapabilitiesGrid } from '@/components/seceon/CapabilitiesGrid';
-import { UseCasesAndServices } from '@/components/seceon/UseCasesAndServices';
-import { WhySeceonComparison } from '@/components/seceon/WhySeceonComparison';
-import { RoiCalculator } from '@/components/seceon/RoiCalculator';
-import { IndustriesSection } from '@/components/seceon/IndustriesSection';
-import { PartnersSection } from '@/components/seceon/PartnersSection';
-import { TestimonialsAndAwards } from '@/components/seceon/TestimonialsAndAwards';
-import { Footer } from '@/components/seceon/Footer';
-import { AppointmentModal } from '@/components/seceon/AppointmentModal';
+function parseJSON(str: string, fallback: any = []) {
+  try { return JSON.parse(str); } catch { return fallback; }
+}
 
-export default function SeceonHomePage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function HomePage() {
+  const db = getDb();
+  
+  const dbServices = db.prepare('SELECT * FROM services ORDER BY order_index').all() as any[];
+  const services = dbServices.length > 0 ? dbServices.map(s => ({
+    id: s.id.toString(),
+    icon: s.icon,
+    title: s.title,
+    shortDesc: s.short_desc,
+    description: s.description,
+    features: parseJSON(s.features),
+    color: s.color,
+    lightColor: s.light_color,
+  })) : SERVICES;
 
-  const handleOpenDemoModal = () => {
-    setIsModalOpen(true);
-  };
+  const dbPortfolio = db.prepare('SELECT * FROM portfolio').all() as any[];
+  const portfolio = dbPortfolio.length > 0 ? dbPortfolio.map(p => ({
+    title: p.title,
+    category: p.category,
+    description: p.description,
+    tech: parseJSON(p.tech),
+    color: p.color,
+  })) : PORTFOLIO;
 
-  const handleCloseDemoModal = () => {
-    setIsModalOpen(false);
-  };
+  const dbTestimonials = db.prepare('SELECT * FROM testimonials').all() as any[];
+  const testimonials = dbTestimonials.length > 0 ? dbTestimonials.map(t => ({
+    quote: t.quote,
+    name: t.name,
+    role: t.role,
+    initials: t.initials,
+    rating: t.rating,
+    color: t.color,
+  })) : TESTIMONIALS;
+
+  const dbStats = db.prepare('SELECT * FROM stats ORDER BY order_index').all() as any[];
+  const stats = dbStats.length > 0 ? dbStats.map(s => ({
+    value: s.value,
+    label: s.label,
+  })) : STATS;
 
   return (
-    <div className="min-h-screen bg-[#071323] text-slate-100 flex flex-col font-sans selection:bg-[#5A9955] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900">
       {/* Sticky Navigation */}
-      <Navbar onOpenDemoModal={handleOpenDemoModal} />
+      <Navbar />
 
-      {/* Main Content Sections */}
       <main className="flex-grow">
-        {/* 1. Hero Section: "Our AI Kills Active Attacks in 90 Seconds" + Interactive Cyber Simulator */}
-        <HeroSection onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 2. Key Telemetry & Statistics Bar */}
-        <StatsBar />
-
-        {/* 3. Real-Time Marquee Ticker */}
-        <Ticker />
-
-        {/* 4. Autonomous SOC Architecture & Gartner Recognition Card */}
-        <AutonomousSOC onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 5. Core Product Suite (aiSIEM, aiXDR-PMAX, aiSIEM CGuard, SERA AI) */}
-        <ProductSuite onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 6. Live Interactive Module Exploration (01 aiTRiSM to 05 SecROI) */}
-        <ModuleExploration onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 7. Open Threat Management Platform: 16 Core Capabilities Grid */}
-        <CapabilitiesGrid onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 8. Featured Threat Use Cases & Partner-Led Services */}
-        <UseCasesAndServices onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 9. Legacy SIEM vs Seceon Market Comparison Table */}
-        <WhySeceonComparison onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 10. Interactive SecROI360 Calculator */}
-        <RoiCalculator onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 11. Industries Deep-Dive (Financial, Healthcare, Government, etc.) */}
-        <IndustriesSection onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 12. Partner Ecosystem: MSP, MSSP, Enterprise */}
-        <PartnersSection onOpenDemoModal={handleOpenDemoModal} />
-
-        {/* 13. Customer Testimonials, Executive Spotlight & Awards Grid */}
-        <TestimonialsAndAwards onOpenDemoModal={handleOpenDemoModal} />
+        <HeroSection />
+        <ServicesSection services={services} />
+        <WhyUsSection />
+        <TechStack />
+        <ProcessSection />
+        <PortfolioSection portfolio={portfolio} />
+        <TestimonialsSection testimonials={testimonials} />
+        <StatsSection stats={stats} />
+        <CtaBanner />
+        <ContactSection />
       </main>
 
-      {/* Global Footer */}
-      <Footer onOpenDemoModal={handleOpenDemoModal} />
-
-      {/* Interactive Appointment & Demo Booking Modal */}
-      <AppointmentModal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseDemoModal} 
-      />
+      <Footer />
     </div>
   );
 }
