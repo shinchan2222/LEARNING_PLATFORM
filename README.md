@@ -1,82 +1,265 @@
-# Seceon | AI-Driven Autonomous Cybersecurity Platform
+# 🚀 DEVops — Software Engineering & Cloud Agency Platform
 
-A pixel-accurate, modern, and fully responsive clone of [Seceon](https://seceon.com), the leader in AI-driven threat detection, Open Threat Management (OTM), aiSIEM, aiXDR, and multi-tenant security operations for modern enterprises and MSSPs.
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-WAL_Mode-003B57?style=flat-square&logo=sqlite)](https://www.sqlite.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](#license)
+
+A modern, production-ready, full-stack digital agency web platform built with **Next.js 14 App Router**, **TypeScript**, **Tailwind CSS**, and **SQLite**. Features a high-converting public agency website, a dynamic CMS blog, a public **Careers Portal & Applicant Tracking System (ATS)**, and a secure, comprehensive **Admin Control Center**.
 
 ---
 
-## 🛡️ Key Features & Sections Replicated
+## 🌟 Platform Overview
 
-### 1. Unified Navigation & Top Utility Bar
-- **Hotline & Global Routing**: Direct access to SOC Hotline (`+1 (978)-923-0040`), `info@seceon.com`, Partner Portal, Support Login, and CGuard Admin Console.
-- **Mega Dropdown Menus**:
-  - **Platform**: aiSIEM™, aiXDR™-PMAX, aiSIEM CGuard™, SERA AI™, aiTRiSM360™, aiCompliance CMX360™, aiBAS360™, aiSecurity Score360™, aiSecurity BI360™, aiSecOT360™, aiSecurity Email360™, and SecROI360™ Calculator.
-  - **Solutions**: Advanced Threat Detection, Ransomware Kill, Insider Threats, Bruteforce Prevention, Cloud Security, and Data Exfiltration.
-  - **Partner-Led Services**: Advisory Services, Attack Surface Monitoring, Audit Services, Breach Simulation, Incident Response & Forensics, Red Teaming, Risk Management, and Vulnerability Lifecycle Management.
-  - **Industries**: Financial, Healthcare, Manufacturing, Government, Education, Retail, Utilities, Telecom, Pharma.
-  - **Partners**: MSP Partner Program, MSSP Partner Program, and Technology Alliances.
-  - **Company**: Leadership, Careers, Awards, Press Releases, and Webinars.
+```mermaid
+flowchart TD
+    subgraph Public["Public Client Experience"]
+        Home["Landing Page (/)"]
+        Blog["Blog (/blog, /blog/[slug])"]
+        Careers["Careers Portal (/careers)"]
+        Apply["Job Application Modal"]
+        Contact["Lead Capture Form"]
+    end
 
-### 2. Live Threat Containment Hero
-- **Headline**: *"Our AI Kills Active Attacks in 90 Seconds"*
-- **Subtitle**: *"While You're Reading This Alert, We've Already Contained It. The Threat Doesn't Wait. Neither Do We."*
-- **CTAs**: Instant links to Start CGuard 30-Day Free Trial and Interactive Product Demo.
-- **Interactive SOC Simulator (`aiTRiSM360`)**:
-  - Live attack simulation with a dynamic sub-90s countdown timer.
-  - Real-time SOAR Playbook execution logs: TLS beacon detection, endpoint memory injection isolation, Kerberos token revocation, and VLAN containment in under 18.4 seconds.
-  - Switchable telemetry views: AI Traffic Map, Governance Dashboard, AI Tool Monitor, and AI Policies.
+    subgraph Admin["Admin Control Center (/admin)"]
+        Auth["JWT & Bcrypt Auth"]
+        Dashboard["Analytics Dashboard"]
+        ATS["Applicant Tracking (ATS)"]
+        CMS["Blog & Content CMS"]
+        Settings["Security & Password Change"]
+        Export["CSV Export Engine"]
+    end
 
-### 3. Key Telemetry & Statistics Bar
-- `90s`: Active Attack Containment (Autonomous AI response).
-- `500+`: Active MSSP Partners worldwide.
-- `50+ Trillion`: Daily events and flows analyzed.
-- `9,800+`: Live enterprise & MSSP customers.
-- `95%`: Alert fatigue reduction via ML behavioral correlation.
-- `75+`: Global cybersecurity industry awards.
+    subgraph Data["Database & Migration Layer"]
+        SQLite[("SQLite (WAL Mode)")]
+        Supabase["Supabase SQL Exporter"]
+    end
 
-### 4. Agentic AI-Driven Autonomous SOC & Gartner Recognition
-- 3 Core Pillars: Streaming Ingestion & Dynamic Baselining, SERA AI™ Autonomous Investigation, and Sub-90s Dynamic SOAR Containment.
-- **Gartner® Peer Insights™**: Voice of the Customer for SIEM 2026 Card with 4.8 / 5.0 star peer review rating.
+    Home --> Contact
+    Careers --> Apply
+    Apply --> SQLite
+    Contact --> SQLite
+    Auth --> Dashboard
+    Dashboard --> ATS
+    Dashboard --> CMS
+    Dashboard --> Settings
+    ATS --> Export
+    ATS --> SQLite
+    CMS --> SQLite
+    SQLite --> Supabase
+```
 
-### 5. Product Suite & Live Module Exploration
-- In-depth product showcases for aiSIEM™, aiXDR™-PMAX, aiSIEM CGuard™, and SERA AI™.
-- Live interactive module tabs: `01 aiTRiSM`, `02 aiBAS360`, `03 CMX360`, `04 email ai`, and `05 SecROI`.
+---
 
-### 6. 16 Capabilities of OTM Platform
-- Security Posture & Asset Management, Analytics & Compliance Reporting, Container & Database Security, Comprehensive Visibility, Threat Intelligence / Hunting, NDR, IDS, UEBA, Network Security, Cloud Security, Forensics, NG-SIEM, SOAR, EDR, Real-Time Threat Containment, and Dynamic Threat Adaptation.
-- Category filtering and live search capabilities.
+## ✨ Key Features
 
-### 7. Legacy SIEM vs. Seceon Comparison Table
-- Direct comparative matrix contrasting Seceon's streaming architecture against traditional legacy tools (Splunk, IBM QRadar, Microsoft Sentinel, LogRhythm).
+### 1. 🌐 High-Converting Public Agency Experience (`/`)
+- **Modern Hero Section**: High-impact value proposition with interactive CTA buttons.
+- **Dynamic Services Showcase**: Displays engineering specialties, feature checklists, and technology tags fetched directly from SQLite.
+- **Enterprise Tech Stack**: Interactive grid showing frontend, backend, cloud, and DevOps tooling.
+- **Why Us & Delivery Process**: Structured 4-phase agile engineering workflow from Discovery to Scaling.
+- **Portfolio & Case Studies**: Project cards with category filters, live links, and GitHub links.
+- **Agency Metrics & Testimonials**: Client endorsements with star ratings and real-time metric counters.
+- **Lead Capture Contact Form**: Validated contact form that saves client inquiries into SQLite with status tracking.
 
-### 8. Interactive SecROI360™ TCO Calculator
-- Dynamic sliders for Endpoints, Daily Log Volume (GB/day), and SOC Team Size.
-- Instantly estimates annual cost savings ($100,000+), TCO reduction percentage, and weekly analyst hours reclaimed.
+### 2. 💼 Careers Portal & Applicant Tracking System (`/careers` & `/admin/careers`)
+- **Public Careers Page (`/careers`)**:
+  - Highlights agency culture and perks (Remote-First, Hardware Stipends, Learning Budgets).
+  - Department filter pills (**All**, **Engineering**, **Cloud & DevOps**, **Design**, **Mobile**).
+  - Expandable job listings with detailed requirements and responsibilities.
+  - Interactive **"Apply Now"** modal with validation for contact info, resume/portfolio links, and cover letter.
+- **Admin ATS Dashboard (`/admin/careers`)**:
+  - **Candidate Pipeline**: Manage applicants across stages: `New` ➔ `Reviewed` ➔ `Interviewing` ➔ `Hired` / `Rejected`.
+  - **Applicant Review**: View candidate profiles, cover letters, and external portfolio/LinkedIn links.
+  - **Job Postings CRUD**: Create, edit, toggle active status, and remove job openings.
+  - **CSV Export**: One-click export of all job applications (`devops-applications-YYYY-MM-DD.csv`).
 
-### 9. Industry Verticals & Partner Ecosystem
-- Industry defense models for Banking, Healthcare, Manufacturing, Government, Education, and Retail.
-- Dedicated MSP, MSSP, and Enterprise partner tiers with high-margin benefits.
+### 3. 📰 Dynamic Blog & Content CMS (`/blog` & `/admin/blog`)
+- **Public Blog (`/blog` & `/blog/[slug]`)**:
+  - Responsive article grid displaying reading times, publication dates, and excerpts.
+  - Rich reading layout with back navigation and clean typography.
+  - Dynamic OpenGraph and Twitter card metadata for rich social sharing.
+- **Admin Blog CMS (`/admin/blog`)**:
+  - Create, edit, and delete articles with auto-slug generation.
+  - One-click publish / unpublish toggling.
 
-### 10. Testimonials, Awards & Global Headquarters
-- Customer endorsements from Obviam, Corr-Serve, Gramax, Bharti Airtel, and Richard Fleishman.
-- Executive spotlight on Chandra Shekhar Pandey (Founder and CEO).
-- Global HQ in Westford, MA, USA and India R&D innovation centers in Pune and Noida.
+### 4. 🛡️ Admin Management Suite (`/admin/*`)
+- **JWT & Secure Cookie Auth**:
+  - Authenticated via HTTP-only, SameSite cookies with timing-attack resistant password verification.
+  - Adaptive protocol detection ensures seamless sessions across local development (`http://`) and production deployments (`https://`).
+- **Administrative Modules**:
+  - **Dashboard**: High-level KPI metrics (services, portfolio, blog count, open jobs, leads, and candidate pipeline).
+  - **Services Management**: Create, edit, reorder, and remove services.
+  - **Portfolio Management**: Manage client case studies and project tags.
+  - **Testimonials Management**: Manage verified customer quotes and ratings.
+  - **Contacts & Enquiries**: Review leads, update statuses (`New`, `In Progress`, `Contacted`, `Archived`), and **Export to CSV**.
+  - **Account Settings & Security (`/admin/settings`)**: Update login email and change password with bcrypt current-password validation.
+
+### 5. 🔍 SEO & Production Readiness
+- **Dynamic Sitemap (`/sitemap.xml`)**: Automatically queries published blog articles and site routes.
+- **Robots Directives (`/robots.txt`)**: Allows search engine indexing of public routes while shielding `/admin/*` and `/api/*`.
+- **Cloud Migration Ready**: Includes a dedicated script (`npm run export:supabase`) to export the local SQLite database into PostgreSQL/Supabase compatible SQL format (`data/supabase-migration.sql`).
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router, React 18, TypeScript)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with custom Seceon cybersecurity theme palette (`#5A9955`, `#071323`, `#037fff`)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Animations**: CSS Keyframe Marquees & Smooth Transitions
+| Layer | Technology |
+|---|---|
+| **Framework** | [Next.js 14](https://nextjs.org/) (App Router, Server & Client Components) |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) (Strict Mode) |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) with custom DEVops blue palette (`#0B63E5`) |
+| **Icons** | [Lucide React](https://lucide.dev/) |
+| **Database** | [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) (SQLite in WAL mode, busy timeout 5000ms) |
+| **Authentication** | [Jose](https://github.com/panva/jose) (JWT), [BcryptJS](https://github.com/dcodeIO/bcrypt.js) |
+| **Script Runner** | [tsx](https://github.com/privatenumber/tsx) |
 
 ---
 
-## 🚀 Running Locally
+## 📁 Project Structure
 
-```bash
-npm install
-npm run dev
+```
+├── data/
+│   ├── devops.db                 # SQLite database file (auto-created, gitignored)
+│   └── supabase-migration.sql    # Generated PostgreSQL/Supabase migration
+├── scripts/
+│   ├── seed.ts                   # Initial database seeder (admin, services, jobs, etc.)
+│   ├── export-supabase-sql.ts    # SQLite to PostgreSQL/Supabase exporter
+│   └── verify-careers.js         # Automated end-to-end verification script
+├── src/
+│   ├── app/
+│   │   ├── admin/                # Admin portal pages
+│   │   │   ├── blog/             # Blog CMS management
+│   │   │   ├── careers/          # Applicant Tracking System (ATS) & Job Postings
+│   │   │   ├── contacts/         # Lead inquiries & CSV export
+│   │   │   ├── dashboard/        # Analytics dashboard
+│   │   │   ├── portfolio/        # Project showcase management
+│   │   │   ├── services/         # Services CRUD
+│   │   │   ├── settings/         # Admin account settings & password change
+│   │   │   ├── stats/            # Agency statistics management
+│   │   │   ├── team/             # Team members management
+│   │   │   ├── testimonials/     # Testimonials management
+│   │   │   ├── layout.tsx        # Protected admin layout & sidebar
+│   │   │   └── login/            # Admin sign-in screen
+│   │   ├── api/                  # REST API endpoints
+│   │   │   ├── admin/            # Authenticated admin CRUD routes
+│   │   │   ├── auth/             # Login, logout, me routes
+│   │   │   ├── blog/             # Blog routes
+│   │   │   ├── careers/          # Job listings & application submission
+│   │   │   └── contacts/         # Public lead capture
+│   │   ├── blog/                 # Public blog pages
+│   │   │   ├── [slug]/           # Dynamic post reading view
+│   │   │   └── page.tsx          # Blog catalog
+│   │   ├── careers/              # Public careers & recruitment portal
+│   │   ├── layout.tsx            # Root layout with OpenGraph metadata
+│   │   ├── page.tsx              # Agency landing page (Server Component)
+│   │   ├── robots.ts             # Search engine crawling rules
+│   │   └── sitemap.ts            # Dynamic sitemap generator
+│   ├── components/
+│   │   └── devops/               # Modular landing page & navigation components
+│   ├── data/
+│   │   └── devopsData.ts         # Fallback data & agency constants
+│   ├── lib/
+│   │   ├── auth.ts               # JWT signing, verification, and cookie helpers
+│   │   ├── db.ts                 # SQLite connection singleton & schema initialization
+│   │   └── utils.ts              # Styling and formatting utility functions
+│   └── types/                    # TypeScript interfaces
+├── .env.example                  # Environment variable template
+└── package.json
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to explore the live application.
+---
+
+## 🚀 Quick Start Guide
+
+### 1. Prerequisites
+- **Node.js**: v18.17+ or v20+ recommended
+- **npm** or **pnpm** / **yarn**
+
+### 2. Installation
+Clone the repository and install dependencies:
+```bash
+git clone https://github.com/shinchan2222/LEARNING_PLATFORM.git
+cd LEARNING_PLATFORM
+npm install
+```
+
+### 3. Environment Configuration
+Copy the environment template:
+```bash
+cp .env.example .env
+```
+*(Optional)* Set a custom `JWT_SECRET` in `.env`:
+```env
+JWT_SECRET=your-super-secret-jwt-key-here
+```
+
+### 4. Database Setup & Seeding
+Initialize the SQLite database with default admin credentials, agency services, starter blog posts, and 4 job openings:
+```bash
+npm run seed
+```
+
+### 5. Running in Development
+Start the local development server:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### 6. Production Build & Start
+To test the production build locally:
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## 🔑 Default Admin Credentials
+
+Access the Admin Control Center at **[http://localhost:3000/admin/login](http://localhost:3000/admin/login)**:
+
+| Field | Default Value |
+|---|---|
+| **Email** | `admin@devops.com` |
+| **Password** | `admin123` |
+
+> 🔒 **Security Notice**: Remember to update your email and password via **Admin ➔ Settings** (`/admin/settings`) prior to deploying into a live production environment.
+
+---
+
+## 📜 Available NPM Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Starts the Next.js development server with Turbopack/HMR |
+| `npm run build` | Compiles TypeScript, collects page data, and generates optimized static & dynamic routes |
+| `npm run start` | Runs the compiled Next.js production build |
+| `npm run seed` | Initializes SQLite schema and seeds demo content and default admin user |
+| `npm run export:supabase` | Generates `data/supabase-migration.sql` with full PostgreSQL schema and data inserts |
+| `npm run lint` | Runs ESLint validation across the codebase |
+
+---
+
+## ☁️ Supabase / PostgreSQL Migration
+
+If you plan to deploy on cloud platforms (e.g., Vercel, Supabase, AWS RDS), you can export your local SQLite data into PostgreSQL with one command:
+
+```bash
+npm run export:supabase
+```
+
+This generates `data/supabase-migration.sql` containing:
+- Complete PostgreSQL DDL with appropriate types (`TIMESTAMPTZ`, `JSONB`, `SERIAL`).
+- Parametrized `INSERT` statements for all existing database records.
+- Sequence reset queries (`setval()`) to avoid primary key ID collisions.
+
+You can paste the generated SQL script directly into the **Supabase SQL Editor**.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
