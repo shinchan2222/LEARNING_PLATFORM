@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 import path from 'path';
 import fs from 'fs';
 
@@ -18,7 +18,7 @@ function run() {
     process.exit(1);
   }
 
-  const db = new Database(DB_PATH);
+  const db = new DatabaseSync(DB_PATH);
 
   const lines: string[] = [];
 

@@ -1,6 +1,6 @@
 // scripts/seed.ts
 // Run with: npx tsx scripts/seed.ts
-import Database from 'better-sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 import bcrypt from 'bcryptjs';
 import path from 'path';
 import fs from 'fs';
@@ -8,8 +8,8 @@ import fs from 'fs';
 const DATA_DIR = path.join(process.cwd(), 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
-const db = new Database(path.join(DATA_DIR, 'devops.db'));
-db.pragma('journal_mode = WAL');
+const db = new DatabaseSync(path.join(DATA_DIR, 'devops.db'));
+db.exec('PRAGMA journal_mode = WAL');
 
 // ── Create all tables ──────────────────────────────────────────────
 db.exec(`

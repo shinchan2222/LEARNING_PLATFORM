@@ -1,13 +1,11 @@
-import Database from 'better-sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 import path from 'path';
 import fs from 'fs';
 
 // Store DB in project root /data folder
-let _db: Database.Database | null = null;
+const globalForDb = globalThis as unknown as { _db: DatabaseSync | undefined };
 
-const globalForDb = globalThis as unknown as { _db: Database.Database | undefined };
-
-export function getDb(): Database.Database {
+export function getDb(): DatabaseSync {
   if (globalForDb._db) return globalForDb._db;
 
   const DATA_DIR = path.join(process.cwd(), 'data');
@@ -15,17 +13,17 @@ export function getDb(): Database.Database {
 
   const DB_PATH = path.join(DATA_DIR, 'devops.db');
 
-  const db = new Database(DB_PATH);
-  db.pragma('journal_mode = WAL');
-  db.pragma('busy_timeout = 5000');
-  db.pragma('foreign_keys = ON');
+  const db = new DatabaseSync(DB_PATH);
+  db.exec('PRAGMA journal_mode = WAL');
+  db.exec('PRAGMA busy_timeout = 5000');
+  db.exec('PRAGMA foreign_keys = ON');
   initSchema(db);
   
   globalForDb._db = db;
   return db;
 }
 
-function initSchema(db: Database.Database) {
+function initSchema(db: DatabaseSync) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS admin_users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
